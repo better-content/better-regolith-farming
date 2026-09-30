@@ -2,7 +2,7 @@
 
 ## Scope
 
-This repository contains the Better Content Forge mod **Regolith Farmland**.
+This repository contains the Better Content Forge mod **Better Regolith Farming**.
 
 - Canonical mod ID: `better_regolith_farming`
 - Canonical artifact: `better-regolith-farming-<version>.jar`
