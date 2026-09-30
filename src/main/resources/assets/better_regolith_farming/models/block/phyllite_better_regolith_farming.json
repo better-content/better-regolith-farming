@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "unearthed:block/phyllite_regolith",
+    "top": "better_regolith_farming:block/phyllite_better_regolith_farming"
+  }
+}

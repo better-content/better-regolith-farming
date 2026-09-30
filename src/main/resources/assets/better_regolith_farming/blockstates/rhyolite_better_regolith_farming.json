@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=1": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=2": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=3": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=4": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=5": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=6": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming"
+    },
+    "moisture=7": {
+      "model": "better_regolith_farming:block/rhyolite_better_regolith_farming_moist"
+    }
+  }
+}

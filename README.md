@@ -1,6 +1,6 @@
-# Regolith Farmland
+# Better Regolith Farming
 
-Adds farmable block variants for the 17 Unearthed regolith types, with farmland tags, loot, moisture, crop support, and Sourceberry compatibility. Registry IDs use the `regolith_farmland` namespace.
+Adds farmable block variants for the 17 Unearthed regolith types, with farmland tags, loot, moisture, crop support, and Sourceberry compatibility. Registry IDs use the `better_regolith_farming` namespace.
 
 Requires Unearthed 2.3.0.
 

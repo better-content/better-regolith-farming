@@ -7,4 +7,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "regolith-farmland"
+rootProject.name = "better-regolith-farming"

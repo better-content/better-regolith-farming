@@ -4,8 +4,8 @@
 
 This repository contains the Better Content Forge mod **Regolith Farmland**.
 
-- Canonical mod ID: `regolith_farmland`
-- Canonical artifact: `regolith-farmland-<version>.jar`
+- Canonical mod ID: `better_regolith_farming`
+- Canonical artifact: `better-regolith-farming-<version>.jar`
 - Maven group: `com.bettercontent`
 - Java runtime: 17
 - Minecraft/Forge baseline: 1.20.1 / 47.4.13
