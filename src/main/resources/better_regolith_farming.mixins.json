@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.bettercontent.betterregolithfarming.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "better_regolith_farming.refmap.json",
+  "mixins": ["BushBlockMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

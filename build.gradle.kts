@@ -49,7 +49,9 @@ minecraft {
 dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     runtimeOnly(fg.deobf("curse.maven:unearthed-406825:7742307"))
+    runtimeOnly(fg.deobf("curse.maven:hyle-609850:7736352"))
     runtimeOnly(fg.deobf("curse.maven:ars-nouveau-401955:6688854"))
     runtimeOnly(fg.deobf("curse.maven:curios-api-309927:6418456"))
     runtimeOnly(fg.deobf("curse.maven:geckolib-388172:7553267"))
@@ -71,9 +73,25 @@ tasks.processResources {
 tasks.withType<Test>().configureEach { useJUnitPlatform(); finalizedBy("jacocoTestReport") }
 jacoco { toolVersion = "0.8.12" }
 tasks.jacocoTestReport { dependsOn(tasks.test); reports { xml.required.set(true); html.required.set(true) } }
-tasks.register("headlessGameTest") { group = "verification"; dependsOn(tasks.named("runGameTestServer")) }
+tasks.matching { it.name == "runGameTestServer" }.configureEach {
+    doFirst { file("run-gametest/logs/latest.log").delete() }
+}
+tasks.register("headlessGameTest") {
+    group = "verification"
+    dependsOn(tasks.named("runGameTestServer"))
+    doLast {
+        val log = file("run-gametest/logs/latest.log")
+        check(log.isFile && log.readText().contains("All 3 required tests passed")) {
+            "GameTest server did not report all 3 required tests passed; see $log"
+        }
+    }
+}
 val syncGameTestStructures by tasks.registering(Copy::class) { from("src/main/resources/gameteststructures"); into("run-gametest/gameteststructures") }
 tasks.matching { it.name.startsWith("prepareRunGameTestServer") }.configureEach { dependsOn(syncGameTestStructures) }
 tasks.register("verifyFast") { group = "verification"; dependsOn(tasks.named("check")) }
 tasks.register("verifyFull") { group = "verification"; dependsOn(tasks.named("verifyFast")); dependsOn(tasks.named("headlessGameTest")) }
 tasks.withType<JavaCompile>().configureEach { options.release.set(17) }
+mixin {
+    add(sourceSets.main.get(), "better_regolith_farming.refmap.json")
+    config("better_regolith_farming.mixins.json")
+}
