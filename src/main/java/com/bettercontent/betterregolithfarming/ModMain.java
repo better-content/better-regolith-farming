@@ -12,6 +12,7 @@ public final class ModMain {
     public static final String MOD_ID = "better_regolith_farming";
 
     public ModMain() {
+        com.bettercontent.betterregolithfarming.diagnostics.RuntimeDiagnostics.initialize();
         var bus = FMLJavaModLoadingContext.get().getModEventBus();
         RegolithFarmlandPalette.BLOCKS.register(bus);
         RegolithFarmlandPalette.ITEMS.register(bus);

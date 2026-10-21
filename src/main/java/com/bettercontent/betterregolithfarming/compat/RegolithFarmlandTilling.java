@@ -55,6 +55,9 @@ public final class RegolithFarmlandTilling {
 
         final Optional<Block> farmlandBlock = RegolithFarmlandPalette.getFarmlandBlock(entry.get().farmlandId());
         if (farmlandBlock.isEmpty()) {
+            var diagnostics = com.bettercontent.betterregolithfarming.diagnostics.RuntimeDiagnostics.LOG;
+            if (diagnostics.enabled("tilling")) com.bettercontent.betterregolithfarming.diagnostics.FeatureObservation.missingMapping(diagnostics,
+                () -> com.bettercontent.betterregolithfarming.diagnostics.RuntimeDiagnostics.tillContext(level, pos), blockId.toString(), entry.get().farmlandId().toString());
             LOGGER.warn("Missing registered regolith farmland block {}", entry.get().farmlandId());
             return;
         }
@@ -62,7 +65,10 @@ public final class RegolithFarmlandTilling {
         level.playSound(player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (!level.isClientSide) {
             final BlockState farmlandState = farmlandBlock.get().defaultBlockState();
-            level.setBlockAndUpdate(pos, farmlandState);
+            boolean placed = level.setBlockAndUpdate(pos, farmlandState);
+            var diagnostics = com.bettercontent.betterregolithfarming.diagnostics.RuntimeDiagnostics.LOG;
+            if (diagnostics.enabled("tilling")) com.bettercontent.betterregolithfarming.diagnostics.FeatureObservation.till(diagnostics,
+                () -> com.bettercontent.betterregolithfarming.diagnostics.RuntimeDiagnostics.tillContext(level, pos), placed, blockId.toString(), entry.get().farmlandId().toString());
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, farmlandState));
             stack.hurtAndBreak(1, player, living -> living.broadcastBreakEvent(event.getHand()));
         }

@@ -73,14 +73,11 @@ tasks.processResources {
 tasks.withType<Test>().configureEach { useJUnitPlatform(); finalizedBy("jacocoTestReport") }
 jacoco { toolVersion = "0.8.12" }
 tasks.jacocoTestReport { dependsOn(tasks.test); reports { xml.required.set(true); html.required.set(true) } }
-tasks.matching { it.name == "runGameTestServer" }.configureEach {
-    doFirst { file("run-gametest/logs/latest.log").delete() }
-}
 tasks.register("headlessGameTest") {
     group = "verification"
     dependsOn(tasks.named("runGameTestServer"))
     doLast {
-        val log = file("run-gametest/logs/latest.log")
+        val log = file(project.extra["nativeGameTestDirectory"]).resolve("logs/latest.log")
         check(log.isFile && log.readText().contains("All 3 required tests passed")) {
             "GameTest server did not report all 3 required tests passed; see $log"
         }
@@ -90,6 +87,7 @@ val syncGameTestStructures by tasks.registering(Copy::class) { from("src/main/re
 tasks.matching { it.name.startsWith("prepareRunGameTestServer") }.configureEach { dependsOn(syncGameTestStructures) }
 tasks.register("verifyFast") { group = "verification"; dependsOn(tasks.named("check")) }
 tasks.register("verifyFull") { group = "verification"; dependsOn(tasks.named("verifyFast")); dependsOn(tasks.named("headlessGameTest")) }
+apply(from = "gradle/native-gametest-fixture.gradle")
 tasks.withType<JavaCompile>().configureEach { options.release.set(17) }
 mixin {
     add(sourceSets.main.get(), "better_regolith_farming.refmap.json")

@@ -1,5 +1,7 @@
 # Better Regolith Farming
 
+See [bounded playtest observations](docs/playtest-observations.md) for native till-result diagnostics.
+
 ## Scope and authority
 
 This repository owns its mod-specific behavior and authoring inputs. Read [local instructions](AGENTS.md)
